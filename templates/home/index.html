@@ -1,0 +1,26 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block tituloPagina %}
+	<title>Inicio | eZLifter</title>
+{% endblock tituloPagina %}
+{% block contenido %}
+	<div class="container py-5">
+		<div class="card">
+			<div class="card-header">
+				Bienvenido <strong>{{ user.nombre }}</strong>
+			</div>
+			<div class="card-body">
+				<p><strong>eZLifer</strong> es una aplicación desarrollada para gestionar ordenes de trabajo del rubro de Ascensores.</p>
+
+				<p>En el menú superior encontrará todas las acciones disponibles que puede realizar según su categoría de usuario.</p>
+			</div>
+		</div>
+	</div>
+{% endblock contenido %}
+{% block js %}
+	<script>
+		$(document).ready(function(){
+			$('[data-active="1"]').addClass('active');
+		});
+	</script>
+{% endblock js %}

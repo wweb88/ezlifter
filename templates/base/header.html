@@ -1,0 +1,48 @@
+{% load static %}
+<div class="bg-2">
+	<div class="container">
+		<header>
+			<nav class="navbar navbar-expand-md navbar-light d-block">
+				<div class="login-perfil">
+					Usuario: <strong>{{ user.nombre }}</strong><br class="d-md-none">
+					<a href="{% url 'logout' %}"><small>Cerrar sesión</small></a>
+				</div>
+
+				<figure class="logo">
+					<a href="{% url 'home' %}">
+						<img src="{% static 'img/logo.png' %}" alt="">
+					</a>
+				</figure>
+				<button class="navbar-toggler d-md-none" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav">
+						{% if user.grupo == '2' %}
+							<li class="nav-item" data-active="1">
+								<a class="nav-link" href="{% url 'home' %}">Inicio</a>
+							</li>
+							<li class="nav-item" data-active="2">
+								<a class="nav-link" href="{% url 'tecnico_listar' %}">Técnicos</a>
+							</li>
+							<li class="nav-item" data-active="3">
+								<a class="nav-link" href="#">Clientes</a>
+							</li>
+							<li class="nav-item" data-active="4">
+								<a class="nav-link" href="#">Ordenes de Trabajo</a>
+							</li>
+						{% else %}
+							<li class="nav-item" data-active="1">
+								<a class="nav-link" href="{% url 'home' %}">Inicio</a>
+							</li>
+							<li class="nav-item" data-active="2">
+								<a class="nav-link" href="#">Ordenes de Trabajo</a>
+							</li>
+						{% endif %}
+					</ul>
+				</div>
+			</nav>
+		</header>
+	</div>
+</div>
