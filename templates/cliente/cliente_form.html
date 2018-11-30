@@ -1,0 +1,97 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block tituloPagina %}
+	<title>Registro de Clientes | eZLifter</title>
+{% endblock tituloPagina %}
+{% block contenido %}
+	<div class="container py-5">
+		<div class="card">
+			<div class="card-header">
+				Registro de Clientes
+			</div>
+			<div class="card-body">
+				<form method="POST" class="row col-12 col-md-10 col-lg-9 mx-auto" id="form-inscripcion">
+					{% csrf_token %}
+					<div class="col-12 col-md-6 mb-3">
+						<div class="form-group m-0">
+							{{ form.nombre.label }}
+							{{ form.nombre }}
+						</div>
+					</div>
+					<div class="col-12 col-md-6 mb-3">
+						<div class="form-group m-0">
+							{{ form.telefono.label }}
+							{{ form.telefono }}
+						</div>
+					</div>
+					<div class="col-12 col-md-6 mb-3">
+						<div class="form-group m-0">
+							{{ form.email.label }}
+							{{ form.email }}
+						</div>
+					</div>
+					<div class="col-12 col-md-6 mb-3">
+						<div class="form-group m-0">
+							{{ form.direccion.label }}
+							{{ form.direccion }}
+						</div>
+					</div>
+					<div class="col-12 col-md-6 mb-3">
+						<div class="form-group m-0">
+							{{ form.region.label }}
+							<select id="regiones" class="form-control" required></select>
+							{{ form.region }}
+						</div>
+					</div>
+					<div class="col-12 col-md-6 mb-3">
+						<div class="form-group m-0">
+							{{ form.comuna.label }}
+							<select id="comunas" class="form-control" required></select>
+							{{ form.comuna }}
+						</div>
+					</div>
+					{% if form.errors %}
+						<div class="col-12 mb-3">
+							<div class="alert small alert-danger">
+								{{ form.errors }}
+							</div>
+						</div>
+					{% endif %}
+					<div class="col-12 text-right">
+						<a href="{% url 'cliente_listar' %}" class="btn btn-light">Volver Atrás</a>
+						<button type="submit" class="btn btn-primary">Ingresar Cliente</button>	
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		
+	</div>
+{% endblock contenido %}
+{% block js %}
+	<script type="text/javascript" src="{% static 'js/regiones-comunas.js' %}"></script>
+	<script>
+		$(document).ready(function(){
+			$('[data-active="3"]').addClass('active');
+
+			$(".solo-numero").keydown(function (e) {
+				if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110]) !== -1 ||
+					(e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) || 
+					(e.keyCode >= 35 && e.keyCode <= 40)) {
+						return;
+				}
+				if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+					e.preventDefault();
+				}
+			});
+
+			$('#regiones').change(function(){
+				$('#form-inscripcion input[name="region"]').val($(this).val());
+			});
+
+			$('#comunas').change(function(){
+				$('#form-inscripcion input[name="comuna"]').val($(this).val());
+			});
+		});
+	</script>
+{% endblock js %}

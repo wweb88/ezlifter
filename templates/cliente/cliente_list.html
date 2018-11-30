@@ -1,44 +1,40 @@
 {% extends 'base/base.html' %}
 {% load static %}
 {% block tituloPagina %}
-	<title>Listado Técnicos | eZLifter</title>
+	<title>Listado Clientes | eZLifter</title>
 {% endblock tituloPagina %}
 {% block contenido %}
 	<div class="container py-5">
 		<div class="card">
 			<div class="card-header">
-				Listado de Técnicos
+				Listado de Clientes
 			</div>
 			<div class="card-body">
 				<div class="text-right mb-3">
-					<a href="{% url 'tecnico_crear' %}" class="btn btn-primary">Agregar Técnico</a>
+					<a href="{% url 'cliente_crear' %}" class="btn btn-primary">Agregar Cliente</a>
 				</div>
 				<div class="table-responsive listado">
 					<table class="table table-hover">
 						<thead class="thead-dark">
 							<tr>
 								<th scope="col">Nombre</th>
-								<th scope="col">Apellido</th>
-								<th scope="col">Correo</th>
-								<th scope="col" class="text-center">Estado</th>
+								<th scope="col">Dirección</th>
+								<th scope="col">Teléfono</th>
+								<th scope="col" class="text-center">Ascensores</th>
 								<th scope="col" class="text-right">Acciones</th>
 							</tr>
 						</thead>
 						<tbody>
-							{% for item in tecnicos %}
+							{% for item in clientes %}
 								<tr>
-									<td>{{ item.first_name }}</td>
-									<td>{{ item.last_name }}</td>
-									<td>{{ item.email }}</td>
+									<td>{{ item.nombre }}</td>
+									<td>{{ item.direccion }}</td>
+									<td>{{ item.telefono }}</td>
 									<td class="text-center">
-										{% if item.is_active %}
-											<span class="text-success">Activo</span>
-										{% else %}
-											<span class="text-warning">Inactivo</span>
-										{% endif %}
+										<a href="{% url 'ascensor_listar' item.id %}" class="btn btn-sm btn-success">Ver Ascensores</a><br>
 									</td>
 									<td class="text-right">
-										<a href="{% url 'tecnico_editar' item.id %}" class="btn btn-sm btn-warning">Editar</a>
+										<a href="{% url 'cliente_editar' item.id %}" class="btn btn-sm btn-warning">Editar</a>
 									</td>
 								</tr>
 							{% endfor %}
@@ -52,7 +48,7 @@
 {% block js %}
 	<script>
 		$(document).ready(function(){
-			$('[data-active="2"]').addClass('active');
+			$('[data-active="3"]').addClass('active');
 		});
 	</script>
 {% endblock js %}

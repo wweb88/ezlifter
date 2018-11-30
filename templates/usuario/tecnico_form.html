@@ -1,0 +1,88 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block tituloPagina %}
+	<title>Registro de Técnicos | eZLifter</title>
+{% endblock tituloPagina %}
+{% block contenido %}
+	<div class="container py-5">
+		<div class="card">
+			<div class="card-header">
+				Registro de Técnicos
+			</div>
+			<div class="card-body">
+				<form method="POST" class="row col-12 col-md-9 mx-auto" id="form-inscripcion">
+					{% csrf_token %}
+					<div class="col-12 col-sm-6 mb-3">
+						<div class="form-group m-0">
+							{{ form.first_name.label }}
+							{{ form.first_name }}
+						</div>
+					</div>
+					<div class="col-12 col-sm-6 mb-3">
+						<div class="form-group m-0">
+							{{ form.last_name.label }}
+							{{ form.last_name }}
+						</div>
+					</div>
+					<div class="col-12 mb-3">
+						<div class="form-group m-0">
+							{{ form.email.label }}
+							{{ form.email }}
+						</div>
+					</div>
+					<div class="col-12 col-sm-6 mb-3">
+						<div class="form-group m-0">
+							{{ form.grupo.label }}
+							{{ form.grupo }}
+						</div>
+					</div>
+					<div class="col-12 col-sm-6 mb-3">
+						<div class="form-group m-0">
+							{{ form.is_active.label }}
+							{{ form.is_active }}
+						</div>
+					</div>
+					<div class="col-12 col-sm-6 mb-3">
+						<div class="form-group m-0">
+							{{ form.password1.label }}
+							{{ form.password1 }}
+						</div>
+					</div>
+					<div class="col-12 col-sm-6 mb-3">
+						<div class="form-group m-0">
+							Confirmar Contraseña
+							{{ form.password2 }}
+						</div>
+					</div>
+					{% if form.errors %}
+						<div class="col-12 mb-3">
+							<div class="alert small alert-danger">
+								{{ form.errors }}
+							</div>
+						</div>
+					{% endif %}
+					<div class="col-12 text-right">
+						<a href="{% url 'tecnico_listar' %}" class="btn btn-light">Volver Atrás</a>
+						<button type="submit" class="btn btn-primary">Ingresar Técnico</button>	
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		
+	</div>
+{% endblock contenido %}
+{% block js %}
+	<script>
+		$(document).ready(function(){
+			$('[data-active="2"]').addClass('active');
+			$('#form-inscripcion input[name="password1"], #form-inscripcion input[name="password2"]').addClass('form-control');
+			$('#form-inscripcion .btn-enviar').click(function(){
+				if($('#form-inscripcion input[name="password1"]').val() != $('#form-inscripcion input[name="password2"]').val()){
+					alert('Las contraseñas no coinciden');
+					return false;
+				}
+			});
+		});
+	</script>
+{% endblock js %}

@@ -32,6 +32,7 @@ urlpatterns = [
 
     url(r'^home$', login_required(views.home), name="home"),
     url(r'^tecnicos/', include('usuario.urls')),
+    url(r'^clientes/', include('cliente.urls')),
 
 
     url(r'^$', login, {'template_name':'usuario/login.html'}, name="login"),

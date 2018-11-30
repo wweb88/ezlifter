@@ -4,7 +4,7 @@
 		<header>
 			<nav class="navbar navbar-expand-md navbar-light d-block">
 				<div class="login-perfil">
-					Usuario: <strong>{{ user.nombre }}</strong><br class="d-md-none">
+					Usuario: <strong>{{ user.first_name }} {{ user.last_name }}</strong><br class="d-md-none">
 					<a href="{% url 'logout' %}"><small>Cerrar sesión</small></a>
 				</div>
 
@@ -27,7 +27,7 @@
 								<a class="nav-link" href="{% url 'tecnico_listar' %}">Técnicos</a>
 							</li>
 							<li class="nav-item" data-active="3">
-								<a class="nav-link" href="#">Clientes</a>
+								<a class="nav-link" href="{% url 'cliente_listar' %}">Clientes</a>
 							</li>
 							<li class="nav-item" data-active="4">
 								<a class="nav-link" href="#">Ordenes de Trabajo</a>
