@@ -30,7 +30,7 @@ class cliente_edit(UpdateView):
 
 def ascensor_list(request, id_cliente):
 	cliente = Cliente.objects.get(id = id_cliente)
-	ascensores = Ascensor.objects.filter(pertenece = cliente).order_by('-id')
+	ascensores = Ascensor.objects.filter(id_cliente = cliente).order_by('-id')
 
 	return render(request, 'cliente/cliente_ascensor_list.html', {'cliente': cliente, 'ascensores': ascensores})
 

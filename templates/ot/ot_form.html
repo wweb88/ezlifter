@@ -1,0 +1,95 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block tituloPagina %}
+	<title>Crear Orden de Trabajo | eZLifter</title>
+{% endblock tituloPagina %}
+{% block contenido %}
+	<div class="container py-5">
+		<div class="card">
+			<div class="card-header">
+				Crear Orden de Trabajo
+			</div>
+			<div class="card-body">
+				<form method="POST" class="row col-12 mx-auto" id="form-inscripcion">
+					{% csrf_token %}
+					
+					<div class="col-12 col-md-6 mb-3">
+						<div class="form-group m-0">
+							{{ form.id_cliente.label }}
+							{{ form.id_cliente }}
+						</div>
+					</div>
+					<div class="col-12 col-md-6 mb-3">
+						<div class="form-group m-0">
+							{{ form.id_tecnico.label }}
+							{{ form.id_tecnico }}
+						</div>
+					</div>
+					<div class="col-12 col-md-6 mb-3">
+						<div class="form-group m-0">
+							<div id="fecha"></div>
+						</div>
+					</div>
+					<div class="col-12 col-md-6 mb-3">
+						<div class="form-group m-0">
+							{{ form.fecha.label }}
+							<div id="fecha"></div>
+							{{ form.fecha }}
+						</div>
+					</div>
+					{% if form.errors %}
+						<div class="col-12 mb-3">
+							<div class="alert small alert-danger">
+								{{ form.errors }}
+							</div>
+						</div>
+					{% endif %}
+					<div class="col-12 text-right">
+						<a href="{% url 'ot_listar' %}" class="btn btn-light">Volver Atrás</a>
+						<button type="submit" class="btn btn-primary">Ingresar OT</button>	
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		
+	</div>
+{% endblock contenido %}
+{% block js %}
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script>
+		$.datepicker.regional['es'] = {
+			closeText: 'Cerrar',
+			prevText: '< Ant',
+			nextText: 'Sig >',
+			currentText: 'Hoy',
+			monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+			monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+			dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+			dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+			dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+			weekHeader: 'Sm',
+			dateFormat: 'yy-mm-dd',
+			firstDay: 1,
+			isRTL: false,
+			showMonthAfterYear: false,
+			yearSuffix: ''
+		};
+		$.datepicker.setDefaults($.datepicker.regional['es']);
+		$(document).ready(function(){
+			$('[data-active="4"]').addClass('active');
+			$('#id_fecha').attr('readonly','readonly');
+		});
+
+		$(function(){
+			$(function(){
+				$("#fecha").datepicker({ minDate: 0});
+			});
+
+			$('#fecha').change(function(){
+				$('#id_fecha').val($(this).val());
+			});
+		});
+	</script>
+{% endblock js %}

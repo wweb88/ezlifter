@@ -1,0 +1,147 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block tituloPagina %}
+	<title>Editar Orden de Trabajo | eZLifter</title>
+{% endblock tituloPagina %}
+{% block contenido %}
+	<div class="container py-5">
+		<div class="card">
+			<div class="card-header">
+				Editar Orden de Trabajo
+			</div>
+			<div class="card-body">
+				<form method="POST" class="row col-12 mx-auto" id="form-inscripcion">
+					{% csrf_token %}
+					<div class="col-12 col-md-6 mb-3">
+						<div class="form-group m-0">
+							{{ form.id_cliente.label }}
+							{{ form.id_cliente }}
+						</div>
+					</div>
+					<div class="col-12 col-md-6 mb-3">
+						<div class="form-group m-0">
+							{{ form.id_tecnico.label }}
+							{{ form.id_tecnico }}
+						</div>
+					</div>
+					<div class="col-12 col-md-6 mb-3">
+						<div class="form-group m-0">
+							<div id="fecha" class="d-block w-100 mx-auto"></div>
+						</div>
+					</div>
+					<div class="col-12 col-md-6 mb-3">
+						<div class="form-group mb-3">
+							{{ form.fecha.label }}
+							<div id="fecha"></div>
+							{{ form.fecha }}
+						</div>
+						<div class="form-group m-0">
+							{{ form.id_ascensor.label }}
+							<select id="select-ascensor" class="form-control">
+								<option value="">------</option>
+								{% for ascens in ascensores %}
+									<option value="{{ ascens.id }}">{{ ascens.numero }} | {{ ascens.modelo }}</option>
+								{% endfor %}
+							</select>
+							{{ form.id_ascensor }}
+						</div>
+					</div>
+					<div class="col-12 col-md-6 mb-3">
+						<div class="form-group m-0">
+							{{ form.fallas.label }}
+							{{ form.fallas }}
+						</div>
+					</div>
+					<div class="col-12 col-md-6 mb-3">
+						<div class="form-group m-0">
+							{{ form.piezas.label }}
+							{{ form.piezas }}
+						</div>
+					</div>
+					<div class="col-12"></div>
+					<div class="col-12 col-md-6 mb-3">
+						<div class="form-group mb-0">
+							{{ form.encargado.label }}
+							{{ form.encargado }}
+						</div>
+					</div>
+					<div class="col-12 mb-3"></div>
+					<div class="col-12 col-md-6 mb-3">
+						<div class="form-group mb-0">
+							{{ form.hora_inicio.label }}
+							{{ form.hora_inicio }}
+						</div>
+					</div>
+					<div class="col-12 col-md-6 mb-3">
+						<div class="form-group m-0">
+							{{ form.hora_termino.label }}
+							{{ form.hora_termino }}
+						</div>
+					</div>
+					{% if form.errors %}
+						<div class="col-12 mb-3">
+							<div class="alert small alert-danger">
+								{{ form.errors }}
+							</div>
+						</div>
+					{% endif %}
+					<div class="col-12 text-right">
+						<a href="{% url 'ot_listar' %}" class="btn btn-light">Volver Atrás</a>
+						<button type="submit" class="btn btn-primary">Editar OT</button>	
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		
+	</div>
+{% endblock contenido %}
+{% block js %}
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	<script>
+		$.datepicker.regional['es'] = {
+			closeText: 'Cerrar',
+			prevText: '< Ant',
+			nextText: 'Sig >',
+			currentText: 'Hoy',
+			monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+			monthNamesShort: ['Ene','Feb','Mar','Abr', 'May','Jun','Jul','Ago','Sep', 'Oct','Nov','Dic'],
+			dayNames: ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'],
+			dayNamesShort: ['Dom','Lun','Mar','Mié','Juv','Vie','Sáb'],
+			dayNamesMin: ['Do','Lu','Ma','Mi','Ju','Vi','Sá'],
+			weekHeader: 'Sm',
+			dateFormat: 'yy-mm-dd',
+			firstDay: 1,
+			isRTL: false,
+			showMonthAfterYear: false,
+			yearSuffix: ''
+		};
+		$.datepicker.setDefaults($.datepicker.regional['es']);
+		$(document).ready(function(){
+			$('[data-active="4"]').addClass('active');
+
+			if($('#id_id_ascensor').val()){
+				$('#select-ascensor option[value="'+$('#id_id_ascensor').val()+'"]').attr('selected','selected');
+			}
+			$('#id_fecha').attr('readonly','readonly');
+
+			$('#id_id_ascensor').attr('type','hidden');
+
+			$('#select-ascensor').change(function(){
+				$('#select-ascensor option').removeAttr('selected');
+				$('#id_id_ascensor').val($(this).val());
+			});
+		});
+
+		$(function(){
+			$(function(){
+				$("#fecha").datepicker({ minDate: 0});
+			});
+
+			$('#fecha').change(function(){
+				$('#id_fecha').val($(this).val());
+			});
+		});
+	</script>
+{% endblock js %}

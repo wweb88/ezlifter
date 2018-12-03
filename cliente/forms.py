@@ -63,7 +63,7 @@ class AscensorForm(forms.ModelForm):
 		fields = [
 			'numero',
 			'modelo',
-			'pertenece',
+			'id_cliente',
 		]
 		labels = {
 			'numero' : 'Número',
@@ -72,5 +72,5 @@ class AscensorForm(forms.ModelForm):
 		widgets = {
 			'numero' : forms.TextInput(attrs={'class' : 'form-control'}),
 			'modelo' : forms.TextInput(attrs={'class' : 'form-control solo-numero'}),
-			'pertenece' : forms.HiddenInput(),
+			'id_cliente' : forms.HiddenInput(),
 		}

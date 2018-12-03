@@ -24,7 +24,7 @@
 							{{ form.modelo }}
 						</div>
 					</div>
-					{{ form.pertenece }}
+					{{ form.id_cliente }}
 					{% if form.errors %}
 						<div class="col-12 mb-3">
 							<div class="alert small alert-danger">
@@ -47,7 +47,7 @@
 		$(document).ready(function(){
 			$('[data-active="3"]').addClass('active');
 			var id = '{{ cliente.id }}';
-			$('#id_pertenece').val(parseInt(id));
+			$('#id_id_cliente').val(parseInt(id));
 		});
 	</script>
 {% endblock js %}

@@ -1,0 +1,75 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block tituloPagina %}
+	<title>Listado Ordenes de Trabajo | eZLifter</title>
+{% endblock tituloPagina %}
+{% block contenido %}
+	<div class="container py-5">
+		<div class="card">
+			<div class="card-header">
+				Listado de Ordenes de Trabajo
+			</div>
+			<div class="card-body">
+				<div class="text-right mb-3">
+					<a href="{% url 'ot_crear' %}" class="btn btn-primary">Crear OT</a>
+				</div>
+				<div class="table-responsive listado">
+					<table class="table table-hover">
+						<thead class="thead-dark">
+							<tr>
+								<th scope="col">Cliente</th>
+								<th scope="col" class="text-center">Fecha Visita</th>
+								<th scope="col" class="text-center">Estado</th>
+								<th scope="col" class="text-right">Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for item in ots %}
+								{% if user.is_staff == True %}
+									<tr>
+										<td>{{ item.id_cliente }}</td>
+										<td class="text-center">{{ item.fecha.date|date:'Y-m-d' }}</td>
+										<td class="text-center">
+											{% if item.estado == '1' %}
+												<span class="text-warning">Pendiente</span>
+											{% else %}
+												<span class="text-success">Terminada</span>
+											{% endif %}
+										</td>
+										<td class="text-right">
+											<a href="{% url 'ot_editar' item.id %}" class="btn btn-sm btn-warning">Editar</a>
+										</td>
+									</tr>
+								{% else %}
+									{% if user.id == item.id_tecnico_id  %}
+										<tr>
+											<td>{{ item.id_cliente }}</td>
+											<td class="text-center">{{ item.fecha.date|date:'Y-m-d' }}</td>
+											<td class="text-center">
+												{% if item.estado == '1' %}
+													<span class="text-warning">Pendiente</span>
+												{% else %}
+													<span class="text-success">Terminada</span>
+												{% endif %}
+											</td>
+											<td class="text-right">
+												<a href="{% url 'ot_editar' item.id %}" class="btn btn-sm btn-warning">Editar</a>
+											</td>
+										</tr>	
+									{% endif %}
+								{% endif %}
+							{% endfor %}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock contenido %}
+{% block js %}
+	<script>
+		$(document).ready(function(){
+			$('[data-active="4"]').addClass('active');
+		});
+	</script>
+{% endblock js %}

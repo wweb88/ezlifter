@@ -17,7 +17,7 @@ class Cliente(models.Model):
 class Ascensor(models.Model):
 	numero		= models.CharField(max_length = 100)
 	modelo 		= models.CharField(max_length = 100)
-	pertenece	= models.ForeignKey(Cliente, null=True, blank=True, on_delete=models.CASCADE)
+	id_cliente	= models.ForeignKey(Cliente, null=True, blank=True, on_delete=models.CASCADE)
 
 	def __str__(self):
 		return self.numero

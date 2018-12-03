@@ -10,6 +10,4 @@ urlpatterns = [
 	#url(r'^ascensor-lista/(?P<pk>\d+)/$', login_required(ascensor_list.as_view()), name='ascensor_listar'),
 	url(r'^ascensor-lista/(?P<id_cliente>\d+)/$', login_required(ascensor_list), name='ascensor_listar'),
 	url(r'^nuevo-ascensor/(?P<id_cliente>\d+)/$', login_required(ascensor_new), name='ascensor_crear'),
-	
-
 ]
