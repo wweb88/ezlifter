@@ -18,6 +18,7 @@
 						<thead class="thead-dark">
 							<tr>
 								<th scope="col">Cliente</th>
+								<th scope="col">Técnico</th>
 								<th scope="col" class="text-center">Fecha Visita</th>
 								<th scope="col" class="text-center">Estado</th>
 								<th scope="col" class="text-right">Acciones</th>
@@ -28,6 +29,7 @@
 								{% if user.is_staff == True %}
 									<tr>
 										<td>{{ item.id_cliente }}</td>
+										<td>{{ item.id_tecnico }}</td>
 										<td class="text-center">{{ item.fecha.date|date:'Y-m-d' }}</td>
 										<td class="text-center">
 											{% if item.estado == '1' %}

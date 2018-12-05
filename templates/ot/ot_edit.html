@@ -78,6 +78,12 @@
 							{{ form.hora_termino }}
 						</div>
 					</div>
+					<div class="col-12 col-md-6 mb-3">
+						<div class="form-group m-0">
+							{{ form.estado.label }}
+							{{ form.estado }}
+						</div>
+					</div>
 					{% if form.errors %}
 						<div class="col-12 mb-3">
 							<div class="alert small alert-danger">
@@ -99,6 +105,12 @@
 {% block js %}
 	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	
+	<link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
+	<script type="text/javascript" src="{% static 'js/jquery.timepicker.js' %}"></script>
+
+
+
 	<script>
 		$.datepicker.regional['es'] = {
 			closeText: 'Cerrar',
@@ -142,6 +154,8 @@
 			$('#fecha').change(function(){
 				$('#id_fecha').val($(this).val());
 			});
+
+			$('.input-time').timepicker({ 'timeFormat': 'h:i a' });
 		});
 	</script>
 {% endblock js %}

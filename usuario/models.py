@@ -66,13 +66,13 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
 		return full_name.strip()
 
 	def get_short_name(self):
-		return self.first_name
+		return '{} {}'.format(self.first_name, self.last_name)
 
 	def email_user(self, subject, message, from_email=None, **kwargs):
 		send_mail(subject, message, from_email, [self.email], **kwargs)
 	
 	def __str__(self):
-		return self.first_name
+		return '{} {}'.format(self.first_name, self.last_name)
 
 
 
