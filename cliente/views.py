@@ -3,7 +3,7 @@ from django.views.generic import CreateView, ListView, UpdateView
 from django.urls import reverse_lazy
 
 from .models import Cliente, Ascensor
-from .forms import ClienteForm, ClienteEditForm, AscensorForm
+from .forms import ClienteForm, ClienteEditForm, AscensorForm, AscensorFormEdit
 
 
 
@@ -56,3 +56,10 @@ def ascensor_new(request, id_cliente):
 		form = AscensorForm()
 
 	return render(request, 'cliente/ascensor_form.html', {'form' : form , 'cliente' : cliente })
+
+
+class ascensor_edit(UpdateView):
+	model =	Ascensor
+	form_class = AscensorFormEdit
+	template_name = 'cliente/cliente_ascensor_edit.html'
+	success_url = reverse_lazy('cliente_listar')

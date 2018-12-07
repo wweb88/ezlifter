@@ -68,3 +68,42 @@ class Cliente_TecnicoFormFull(forms.ModelForm):
 			'estado' : forms.Select(choices = estado,attrs={'class' : 'form-control'}),
 		}
 
+class Cliente_TecnicoFormStart(forms.ModelForm):
+	class Meta:
+		model = Cliente_Tecnico
+		fields = [
+			'id_cliente',
+			'id_tecnico',
+			'fecha',
+			'hora_inicio',
+			'hora_termino',
+			'id_ascensor',
+			'fallas',
+			'piezas',
+			'encargado',
+			'estado',
+		]
+		labels = {
+			'id_cliente' : 'Cliente',
+			'id_tecnico' : 'Técnico',
+			'fecha' : 'Fecha de visita',
+			'hora_inicio' : 'Hora de Inicio',
+			'hora_termino' : 'Hora de Término',
+			'id_ascensor' : 'Ascensor trabajado',
+			'fallas' : 'Fallas encontradas',
+			'piezas' : 'Piezas Cambiadas',
+			'encargado' : 'Nombre persona a cargo',
+			'estado' : 'Estado',
+		}
+		widgets = {
+			'id_cliente' : forms.HiddenInput(attrs={'class' : 'form-control'}),
+			'id_tecnico' : forms.HiddenInput(attrs={'class' : 'form-control'}),
+			'fecha' : forms.HiddenInput(attrs={'class' : 'form-control'}),
+			'hora_inicio' : forms.HiddenInput(attrs={'class' : 'form-control input-time'}),
+			'hora_termino' : forms.HiddenInput(attrs={'class' : 'form-control input-time'}),
+			'id_ascensor' : forms.TextInput(attrs={'class' : 'form-control'}),
+			'fallas' : forms.Textarea(attrs={'class' : 'form-control', 'rows':'3'}),
+			'piezas' : forms.Textarea(attrs={'class' : 'form-control', 'rows':'3'}),
+			'encargado' : forms.TextInput(attrs={'class' : 'form-control', 'required' : 'required'}),
+			'estado' : forms.HiddenInput(attrs={'class' : 'form-control'}),
+		}

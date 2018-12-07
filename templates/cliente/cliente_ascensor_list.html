@@ -19,6 +19,7 @@
 							<tr>
 								<th scope="col"># Ascensor</th>
 								<th scope="col">Modelo</th>
+								<th scope="col">Acciones</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -27,6 +28,9 @@
 								<tr>
 									<td>{{ item.numero }}</td>
 									<td>{{ item.modelo }}</td>
+									<td>
+										<a href="{% url 'ascensor_editar' item.id %}" class="btn btn-sm btn-warning">Editar</a>
+									</td>
 								</tr>
 							{% endfor %}
 						</tbody>

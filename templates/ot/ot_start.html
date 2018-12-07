@@ -1,0 +1,152 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block tituloPagina %}
+	<title>Orden de Trabajo | eZLifter</title>
+{% endblock tituloPagina %}
+{% block contenido %}
+	<div class="container py-5">
+		<div class="card">
+			<div class="card-header">
+				<span class="mr-3">Orden de Trabajo</span> |  <span class="ml-3"><strong>Hora de Inicio:</strong> <span id="hora-inicio"></span></span>
+			</div>
+			<div class="card-body">
+				<form method="POST" class="row col-12 mx-auto" id="form-ot">
+					{% csrf_token %}
+					{{ form.id_cliente }}
+					{{ form.id_tecnico }}
+					{{ form.fecha }}
+					{{ form.hora_inicio }}
+					{{ form.hora_termino }}
+					{{ form.estado }}
+					<div class="col-12 mb-3">
+						<div class="table-responsive">
+							<table class="table">
+								<thead class="thead-dark">
+									<tr>
+										<th scope="col"># Folio</th>
+										<th scope="col">Cliente</th>
+										<th scope="col" class="text-center">Fecha Programada de Visita</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td># {{ ot.id }}</td>
+										<td>{{ ot.id_cliente }}</td>
+										<td class="text-center">{{ ot.fecha.date|date:'Y-m-d' }}</td>
+									</tr>
+								</tbody>
+							</table>
+						</div> 
+					</div>
+					<div class="col-12 mb-3">
+						<table class="table">
+							<tr>
+								<td class="align-middle">{{ form.id_ascensor.label }} :</td>
+								<td class="align-middle">
+									<select id="select-ascensor" class="form-control">
+										<option value="">------</option>
+										{% for ascens in ascensores %}
+											<option value="{{ ascens.id }}">{{ ascens.numero }} | {{ ascens.modelo }}</option>
+										{% endfor %}
+									</select>
+									{{ form.id_ascensor }}
+								</td>
+							</tr>
+							<tr>
+								<td class="align-middle">{{ form.fallas.label }} :</td>
+								<td class="align-middle">
+									{{ form.fallas }}
+								</td>
+							</tr>
+							<tr>
+								<td class="align-middle">{{ form.piezas.label }} :</td>
+								<td class="align-middle">
+									{{ form.piezas }}
+								</td>
+							</tr>
+							<tr>
+								<td class="align-middle">{{ form.encargado.label }} :</td>
+								<td class="align-middle">
+									{{ form.encargado }}
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="col-12"></div>
+					<div class="col-12 col-md-6 mb-3">
+						<div class="form-group mb-0">
+							
+							
+						</div>
+					</div>
+					{% if form.errors %}
+						<div class="col-12 mb-3">
+							<div class="alert small alert-danger">
+								{{ form.errors }}
+							</div>
+						</div>
+					{% endif %}
+					<div id="res" class="d-none alert alert-danger text-center col-12"></div>
+					<div class="col-12 text-right">
+						<a href="{% url 'ot_listar' %}" class="btn btn-light">Volver Atrás</a>
+						<button type="button" class="btn btn-terminar btn-primary">Terminar OT</button>	
+					</div>
+				</form>
+			</div>
+		</div>
+		
+		
+	</div>
+{% endblock contenido %}
+{% block js %}
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	
+	<link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
+	<script type="text/javascript" src="{% static 'js/jquery.timepicker.js' %}"></script>
+
+
+
+	<script>
+		$(function(){
+			$('.input-time').timepicker({ 'timeFormat': 'h:i a' });
+		});
+		$(document).ready(function(){
+			$('[data-active="4"]').addClass('active');
+
+			$('#id_id_ascensor').attr('type','hidden');
+
+			$('#select-ascensor').change(function(){
+				$('#select-ascensor option').removeAttr('selected');
+				$('#id_id_ascensor').val($(this).val());
+			});
+
+			$('#id_hora_inicio').timepicker('setTime', new Date());
+			$('#hora-inicio').text($('#id_hora_inicio').val());
+		});
+
+
+		$('.btn-terminar').click(function(){
+			if($('#id_id_ascensor').val() == ''){
+				$('#res').html('Debe indicar ascensor').removeClass('d-none');
+				$('#select-ascensor').focus();
+				return false;
+			}
+			if($('#id_fallas').val() == ''){
+				$('#res').html('Debe indicar fallas encontradas').removeClass('d-none');
+				$('#id_fallas').focus();
+				return false;
+			}
+			if($('#id_encargado').val() == ''){
+				$('#res').html('Debe indicar el nombre del encargado').removeClass('d-none');
+				$('#id_encargado').focus();
+				return false;
+			}
+
+			$('#id_hora_termino').timepicker('setTime', new Date());
+			$('#id_estado').val('2');
+
+			$('#form-ot').submit();
+		});
+	</script>
+{% endblock js %}

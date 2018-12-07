@@ -140,6 +140,9 @@
 		position: relative;
 		z-index: 10;
 	}
+	.botones-mixed .mixitup-control-active{
+		box-shadow: 2px 2px 5px rgba(0,0,0,.8);
+	}
 	.btn{
 		line-height: 1.1em;
 		font-weight: 300;

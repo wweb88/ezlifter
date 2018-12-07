@@ -10,8 +10,16 @@
 				Listado de Ordenes de Trabajo
 			</div>
 			<div class="card-body">
+				{% if user.is_staff == True %}
 				<div class="text-right mb-3">
 					<a href="{% url 'ot_crear' %}" class="btn btn-primary">Crear OT</a>
+				</div>
+				{% endif %}
+
+				<div class="controls text-center mb-3 botones-mixed">
+					<button class="btn btn-primary control" data-filter="all">Todas</button>
+					<button class="btn btn-danger control" data-filter=".pendiente">Pendiente</button>
+					<button class="btn btn-success control" data-filter=".terminada">Terminada</button>
 				</div>
 				<div class="table-responsive listado">
 					<table class="table table-hover">
@@ -21,41 +29,47 @@
 								<th scope="col">Técnico</th>
 								<th scope="col" class="text-center">Fecha Visita</th>
 								<th scope="col" class="text-center">Estado</th>
-								<th scope="col" class="text-right">Acciones</th>
+								<th scope="col" class="text-center">Acciones</th>
 							</tr>
 						</thead>
-						<tbody>
+						<tbody class="conte_conjunto">
 							{% for item in ots %}
 								{% if user.is_staff == True %}
-									<tr>
+									<tr class="mix {% if item.estado == '1' %}pendiente{% endif %}{% if item.estado == '2' %}terminada{% endif %}">
 										<td>{{ item.id_cliente }}</td>
 										<td>{{ item.id_tecnico }}</td>
 										<td class="text-center">{{ item.fecha.date|date:'Y-m-d' }}</td>
 										<td class="text-center">
 											{% if item.estado == '1' %}
-												<span class="text-warning">Pendiente</span>
+												<span class="text-danger">Pendiente</span>
 											{% else %}
 												<span class="text-success">Terminada</span>
 											{% endif %}
 										</td>
 										<td class="text-right">
-											<a href="{% url 'ot_editar' item.id %}" class="btn btn-sm btn-warning">Editar</a>
+											<a href="{% url 'ot_editar' item.id %}" class="btn btn-block btn-sm btn-warning">Editar</a>
 										</td>
 									</tr>
 								{% else %}
 									{% if user.id == item.id_tecnico_id  %}
-										<tr>
+										<tr class="mix {% if item.estado == '1' %}pendiente{% endif %}{% if item.estado == '2' %}terminada{% endif %}">
 											<td>{{ item.id_cliente }}</td>
+											<td>{{ item.id_tecnico }}</td>
 											<td class="text-center">{{ item.fecha.date|date:'Y-m-d' }}</td>
 											<td class="text-center">
 												{% if item.estado == '1' %}
-													<span class="text-warning">Pendiente</span>
+													<span class="text-danger">Pendiente</span>
 												{% else %}
 													<span class="text-success">Terminada</span>
 												{% endif %}
 											</td>
 											<td class="text-right">
-												<a href="{% url 'ot_editar' item.id %}" class="btn btn-sm btn-warning">Editar</a>
+												{% if item.estado == '1' %}
+													<a href="{% url 'ot_iniciar' item.id %}" class="btn btn-block btn-sm btn-danger">Iniciar OT</a>	
+												{% else %}
+													<a href="{% url 'ot_ver' item.id %}" class="btn btn-block btn-sm btn-success">Ver OT</a>
+												{% endif %}	
+												
 											</td>
 										</tr>	
 									{% endif %}
@@ -69,9 +83,11 @@
 	</div>
 {% endblock contenido %}
 {% block js %}
+	<script type="text/javascript" src="{% static 'js/mixitup.js' %}"></script>
 	<script>
 		$(document).ready(function(){
 			$('[data-active="4"]').addClass('active');
+			mixitup($('.conte_conjunto'));
 		});
 	</script>
 {% endblock js %}

@@ -1,0 +1,125 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block tituloPagina %}
+	<title>Orden de Trabajo | eZLifter</title>
+{% endblock tituloPagina %}
+{% block contenido %}
+	<div class="container py-5">
+		<div class="card">
+			<div class="card-header">
+				<span class="mr-3">Orden de Trabajo # {{ ot.id }}</span>
+			</div>
+			<div class="card-body">
+				<div class="col-12 mb-3">
+					<div class="table-responsive">
+						<table class="table">
+							<thead class="thead-dark">
+								<tr>
+									<th class="align-middle" scope="col">Cliente</th>
+									<th class="align-middle" scope="col">{{ ot.id_cliente }}</th>
+								</tr>
+							</thead>
+							<tbody class="tbody-dark">
+								<tr>
+									<td class="align-middle">Fecha Programada de Visita</td>
+									<td class="align-middle">{{ ot.fecha.date|date:'Y-m-d' }}</td>
+								</tr>
+								<tr>
+									<td class="align-middle">Iniciada</td>
+									<td class="align-middle">{{ ot.hora_inicio }}</td>
+								</tr>
+								<tr>
+									<td class="align-middle">Finalizada</td>
+									<td class="align-middle">{{ ot.hora_termino }}</td>
+								</tr>
+								<tr>
+									<td class="align-middle">Ascensor trabajado</td>
+									<td class="align-middle">{{ ot.id_ascensor }}</td>
+								</tr>
+								<tr>
+									<td class="align-middle">Fallas encontradas</td>
+									<td class="align-middle">{{ ot.fallas }}</td>
+								</tr>
+								<tr>
+									<td class="align-middle">Piezas cambiadas</td>
+									<td class="align-middle">{{ ot.piezas }}</td>
+								</tr>
+								<tr>
+									<td class="align-middle">Persona encargada</td>
+									<td class="align-middle">{{ ot.encargado }}</td>
+								</tr>
+								<tr>
+									<td class="align-middle">Estado</td>
+									<td class="align-middle">
+										{% if ot.estado == '2' %}
+											<span class="text-success">Terminada</span>
+										{% else %}
+											<span class="text-danger">Pendiente</span>
+										{% endif %}
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div> 
+				</div>
+				<div class="col-12 text-right">
+					<a href="{% url 'ot_listar' %}" class="btn btn-primary">Volver Atrás</a>
+				</div>
+			</div>
+		</div>
+		
+		
+	</div>
+{% endblock contenido %}
+{% block js %}
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+	<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	
+	<link rel="stylesheet" href="{% static 'css/jquery.timepicker.css' %}">
+	<script type="text/javascript" src="{% static 'js/jquery.timepicker.js' %}"></script>
+
+
+
+	<script>
+		$(function(){
+			$('.input-time').timepicker({ 'timeFormat': 'h:i a' });
+		});
+		$(document).ready(function(){
+			$('[data-active="4"]').addClass('active');
+
+			$('#id_id_ascensor').attr('type','hidden');
+
+			$('#select-ascensor').change(function(){
+				$('#select-ascensor option').removeAttr('selected');
+				$('#id_id_ascensor').val($(this).val());
+			});
+
+			$('#id_hora_inicio').timepicker('setTime', new Date());
+			$('#hora-inicio').text($('#id_hora_inicio').val());
+		});
+
+
+		$('.btn-terminar').click(function(){
+			if($('#id_id_ascensor').val() == ''){
+				$('#res').html('Debe indicar ascensor').removeClass('d-none');
+				$('#select-ascensor').focus();
+				return false;
+			}
+			if($('#id_fallas').val() == ''){
+				$('#res').html('Debe indicar fallas encontradas').removeClass('d-none');
+				$('#id_fallas').focus();
+				return false;
+			}
+			if($('#id_encargado').val() == ''){
+				$('#res').html('Debe indicar el nombre del encargado').removeClass('d-none');
+				$('#id_encargado').focus();
+				return false;
+			}
+
+			$('#id_hora_termino').timepicker('setTime', new Date());
+			$('#id_estado').val('2');
+
+			$('#form-ot').submit();
+		});
+	</script>
+{% endblock js %}

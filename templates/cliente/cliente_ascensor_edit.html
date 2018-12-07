@@ -1,0 +1,53 @@
+{% extends 'base/base.html' %}
+{% load static %}
+{% block tituloPagina %}
+	<title>Registro de Ascensor | eZLifter</title>
+{% endblock tituloPagina %}
+{% block contenido %}
+	<div class="container py-5">
+		<div class="card">
+			<div class="card-header">
+				Registro de Ascensor
+			</div>
+			<div class="card-body">
+				<form method="POST" class="row col-12 col-md-10 col-lg-9 mx-auto" id="form-inscripcion">
+					{% csrf_token %}
+					<div class="col-12 col-md-6 mb-3">
+						<div class="form-group m-0">
+							{{ form.numero.label }}
+							{{ form.numero }}
+						</div>
+					</div>
+					<div class="col-12 col-md-6 mb-3">
+						<div class="form-group m-0">
+							{{ form.modelo.label }}
+							{{ form.modelo }}
+						</div>
+					</div>
+					{{ form.id_cliente }}
+					{% if form.errors %}
+						<div class="col-12 mb-3">
+							<div class="alert small alert-danger">
+								{{ form.errors }}
+							</div>
+						</div>
+					{% endif %}
+					<div class="col-12 text-right">
+						<a href="{% url 'cliente_listar' %}" class="btn btn-light">Volver Atrás</a>
+						<button type="submit" class="btn btn-primary">Agregar Ascensor</button>	
+					</div>
+				</form>
+			</div>
+		</div>
+		
+	</div>
+{% endblock contenido %}
+{% block js %}
+	<script>
+		$(document).ready(function(){
+			$('[data-active="3"]').addClass('active');
+			var id = '{{ cliente.id }}';
+			$('#id_id_cliente').val(parseInt(id));
+		});
+	</script>
+{% endblock js %}

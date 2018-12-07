@@ -74,3 +74,19 @@ class AscensorForm(forms.ModelForm):
 			'modelo' : forms.TextInput(attrs={'class' : 'form-control solo-numero'}),
 			'id_cliente' : forms.HiddenInput(),
 		}
+
+class AscensorFormEdit(forms.ModelForm):
+	class Meta:
+		model = Ascensor
+		fields = [
+			'numero',
+			'modelo',
+		]
+		labels = {
+			'numero' : 'Número',
+			'modelo' : 'Modelo',
+		}
+		widgets = {
+			'numero' : forms.TextInput(attrs={'class' : 'form-control'}),
+			'modelo' : forms.TextInput(attrs={'class' : 'form-control solo-numero'}),
+		}
