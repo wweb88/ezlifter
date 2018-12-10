@@ -41,6 +41,9 @@ urlpatterns = [
     url(r'^reset/password_reset_done$', password_reset_done, {'template_name' : 'registration/password_reset_done.html'}, name="password_reset_done" ),
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>.+)/$', password_reset_confirm, {'template_name' : 'registration/password_reset_confirm.html'}, name="password_reset_confirm"),
     url(r'^reset/done', password_reset_complete, {'template_name' : 'registration/password_reset_complete.html'}, name="password_reset_complete" ),
+
+    url('accounts/', include('allauth.urls')),
+    #url('', include('social_django.urls', namespace='social')),
 ]
 
 
