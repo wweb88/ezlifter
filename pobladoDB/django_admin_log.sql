@@ -1,0 +1,2 @@
+INSERT INTO "django_admin_log"("id", "action_time", "object_id", "object_repr", "action_flag", "change_message", "content_type_id", "user_id") VALUES (1, '2018-12-09 21:07:17.309655-03', '1', 'https://localhost:8000/', 2, '[{"changed": {"fields": ["domain", "name"]}}]', 20, 2);
+INSERT INTO "django_admin_log"("id", "action_time", "object_id", "object_repr", "action_flag", "change_message", "content_type_id", "user_id") VALUES (2, '2018-12-09 21:10:46.133047-03', '1', 'FaceBook', 1, '[{"added": {}}]', 24, 2);

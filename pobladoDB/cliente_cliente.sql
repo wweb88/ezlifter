@@ -1,0 +1,5 @@
+INSERT INTO "cliente_cliente"("id", "nombre", "direccion", "region", "comuna", "telefono", "email") VALUES (2, 'Buffalo S.A.', 'El Granero #9871', 'Región del Biobío', 'Hualpén', '987654321', 'buffalo@correo.cl');
+INSERT INTO "cliente_cliente"("id", "nombre", "direccion", "region", "comuna", "telefono", "email") VALUES (1, 'eZCliente', 'Carretera a Loma s/n', 'RM', 'Santiago', '987654321', 'ezcliente@correo.cl');
+INSERT INTO "cliente_cliente"("id", "nombre", "direccion", "region", "comuna", "telefono", "email") VALUES (3, 'Duoc San Joaquín', 'Vicuña Mackena #9872', 'Región Metropolitana de Santiago', 'San Joaquín', '289786542', 'duocsanjoaquin@gmail.com');
+INSERT INTO "cliente_cliente"("id", "nombre", "direccion", "region", "comuna", "telefono", "email") VALUES (4, 'Edificio Luis Valenzuela', 'Luis Valenzuela #3221', 'Región Metropolitana de Santiago', 'Macul', '2589632147', 'luisvalenzuela@gmail.com');
+INSERT INTO "cliente_cliente"("id", "nombre", "direccion", "region", "comuna", "telefono", "email") VALUES (5, 'Torre Quilicura', 'Alameda #1', 'Región Metropolitana de Santiago', 'Quilicura', '123600600', 'entel@gmail.com');

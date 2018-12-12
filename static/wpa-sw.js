@@ -26,7 +26,7 @@ self.addEventListener('install', e => {
 
 /*
 Evento activate
-Que la app funcione sin conexión
+Que la app funcione sin conexiÃ³n
 */
 self.addEventListener('activate', e => {
 	const cacheWhitelist = [CACHE_NAME];
@@ -34,7 +34,7 @@ self.addEventListener('activate', e => {
 		caches.keys()
 			.then(cacheNames => {
 				return Promise.all(
-					acheNames.map(cacheName => {
+					cacheNames.map(cacheName => {
 						if(cacheWhitelist.indexOf(cacheName) === -1){
 							/* Borrar elementos que no se necesitan */
 							return caches.delete(cacheName);
@@ -62,5 +62,5 @@ self.addEventListener('fetch', e => {
 				}
 				return fetch(e.request);
 			})
-	);
+	)
 });
